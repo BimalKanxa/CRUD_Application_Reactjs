@@ -28,10 +28,24 @@ const addTask = (task) => {
   const id = uuidv4();
   const newTask = { id, ...task }
   setTasks([...tasks, newTask]);
+  // Swal.fire({
+  //     icon: 'success',
+  //     title: 'Yay...',
+  //     text: 'You have successfully added a new task!'
+  // })
+
   Swal.fire({
-      icon: 'success',
-      title: 'Yay...',
-      text: 'You have successfully added a new task!'
+    title: 'Yay...You have successfully added a new task!',
+    width: 600,
+    padding: '3em',
+    color: '#716add',
+    background: '#fff url(https://sweetalert2.github.io/images/trees.png)',
+    backdrop: `
+      rgba(0,0,123,0.4)
+      url("https://sweetalert2.github.io/images/nyan-cat.gif")
+      left top
+      no-repeat
+    `
   })
   localStorage.setItem("taskAdded", JSON.stringify([...tasks, newTask]));
 }
@@ -40,10 +54,27 @@ const addTask = (task) => {
 const deleteTask = (id) => {
   const deleteTask = tasks.filter((task) => task.id !== id);
   setTasks(deleteTask);
+  // Swal.fire({
+  //     icon: 'success',
+  //     title: 'Oops...',
+  //     text: 'You have successfully deleted a task!'
+  // })
   Swal.fire({
-      icon: 'success',
-      title: 'Oops...',
-      text: 'You have successfully deleted a task!'
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
+    }
   })
   localStorage.setItem("taskAdded", JSON.stringify(deleteTask));
 }
