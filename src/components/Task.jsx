@@ -1,3 +1,4 @@
+
 import { FaPencilAlt, FaTimes } from 'react-icons/fa';
 import "../index.css"
 const Task = ({ task, onDelete, onEdit }) => {
